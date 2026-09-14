@@ -20,7 +20,8 @@ import {
   TrendingUp,
   Volume2,
   Upload,
-  Send
+  Send,
+  MessageSquare
 } from 'lucide-react';
 
 interface QuestionItem {
@@ -313,23 +314,23 @@ export const TestSimulatorPhase: React.FC = () => {
     <div className="w-full max-w-4xl flex flex-col gap-8 animate-fadeIn">
       {/* Header Banner */}
       <div className="text-center flex flex-col gap-3">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-950/80 border border-emerald-800 text-emerald-300 text-xs font-semibold uppercase tracking-wider mx-auto shadow-md">
-          <BookOpen className="w-4 h-4 text-emerald-400" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold uppercase tracking-wider mx-auto shadow-xs">
+          <BookOpen className="w-4 h-4 text-emerald-600" />
           <span>Interactive Test Interview Simulator</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
           Adaptive Question & Grading Simulator
         </h1>
-        <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
           Simulate a real-world technical deep-dive or defense examination. Answer questions verbally or via text, receive instant AI scoring, and track your readiness.
         </p>
       </div>
 
       {/* Step 1: Configuration Form */}
       {step === 1 && (
-        <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-slate-800/90 backdrop-blur-2xl shadow-2xl flex flex-col gap-6">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-xl flex flex-col gap-6">
           <div className="flex flex-col gap-3">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-300">
+            <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
               Select Preset Domain or Enter Custom Subject
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -341,11 +342,11 @@ export const TestSimulatorPhase: React.FC = () => {
                   }}
                   className={`p-4 rounded-2xl border text-left flex flex-col gap-1 transition-all ${
                     domain === p.domain
-                      ? 'bg-slate-950 border-emerald-500 text-white ring-1 ring-emerald-500'
-                      : 'bg-slate-950/50 border-slate-800 text-slate-400 hover:border-slate-700'
+                      ? 'bg-white border-emerald-500 text-slate-900 ring-1 ring-emerald-500 shadow-sm'
+                      : 'bg-slate-50/70 border-slate-200 text-slate-600 hover:border-slate-300'
                   }`}
                 >
-                  <span className="text-xs font-bold text-white">{p.label}</span>
+                  <span className="text-xs font-bold text-slate-900">{p.label}</span>
                   <span className="text-[11px] text-slate-500">{p.domain}</span>
                 </button>
               ))}
@@ -354,7 +355,7 @@ export const TestSimulatorPhase: React.FC = () => {
               type="text"
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
-              className="w-full p-4 rounded-xl bg-slate-950 border border-slate-800 focus:border-emerald-500 text-sm text-slate-100 outline-none mt-2 font-sans"
+              className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white text-sm text-slate-900 outline-none mt-2 font-sans"
               placeholder="e.g. Distributed Systems & Shared Cache Architecture"
             />
           </div>
@@ -362,11 +363,11 @@ export const TestSimulatorPhase: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {/* Question Count */}
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-300">Question Count</label>
+              <label className="text-xs font-bold uppercase tracking-wider text-slate-700">Question Count</label>
               <select
                 value={questionCount}
                 onChange={(e) => setQuestionCount(Number(e.target.value))}
-                className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-100 outline-none"
+                className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-800 outline-none"
               >
                 <option value={2}>2 Questions</option>
                 <option value={3}>3 Questions</option>
@@ -377,11 +378,11 @@ export const TestSimulatorPhase: React.FC = () => {
 
             {/* Baseline Difficulty */}
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-300">Baseline Tier</label>
+              <label className="text-xs font-bold uppercase tracking-wider text-slate-700">Baseline Tier</label>
               <select
                 value={difficultyLevel}
                 onChange={(e) => setDifficultyLevel(e.target.value)}
-                className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-100 outline-none"
+                className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-800 outline-none"
               >
                 <option value="junior">Junior / Entry</option>
                 <option value="Mid-Level">Mid-Level</option>
@@ -396,8 +397,8 @@ export const TestSimulatorPhase: React.FC = () => {
                 onClick={() => setAdaptiveMode(!adaptiveMode)}
                 className={`p-3.5 rounded-xl border text-xs font-bold flex items-center justify-between transition-all ${
                   adaptiveMode
-                    ? 'bg-emerald-950/80 border-emerald-800 text-emerald-300'
-                    : 'bg-slate-950 border-slate-800 text-slate-400'
+                    ? 'bg-emerald-50 border-emerald-300 text-emerald-800'
+                    : 'bg-slate-50 border-slate-200 text-slate-500'
                 }`}
               >
                 <span>Adaptive Difficulty</span>
@@ -406,13 +407,13 @@ export const TestSimulatorPhase: React.FC = () => {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-800">
+          <div className="pt-4 border-t border-slate-100">
             <button
               onClick={handleGenerateQuestions}
               disabled={loading || !domain.trim()}
-              className="w-full flex items-center justify-center gap-3 py-4 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-extrabold text-sm transition-all shadow-xl shadow-emerald-950/50 disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-3 py-4 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-sm transition-all shadow-lg shadow-emerald-600/20 disabled:opacity-50 cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 fill-slate-950" />
+              <Sparkles className="w-4 h-4 fill-white" />
               <span>{loading ? 'Generating Questions with AI...' : 'Generate Practice Interview Questions'}</span>
             </button>
           </div>
@@ -421,29 +422,29 @@ export const TestSimulatorPhase: React.FC = () => {
 
       {/* Step 2: Question Answering Interface */}
       {step === 2 && currentQ && (
-        <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-slate-800/90 backdrop-blur-2xl shadow-2xl flex flex-col gap-6">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-xl flex flex-col gap-6">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono text-cyan-400 font-bold">
+            <span className="text-xs font-mono text-teal-700 font-bold">
               Question {currentIndex + 1} of {questions.length}
             </span>
-            <span className="px-3 py-1 rounded-full bg-slate-950 border border-slate-800 text-xs font-mono text-amber-400 uppercase">
+            <span className="px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-xs font-mono text-amber-800 uppercase font-semibold">
               {currentQ.difficulty || difficultyLevel} Tier
             </span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-slate-950 border border-slate-800">
-            <h2 className="text-lg sm:text-xl font-bold text-white leading-relaxed">
+          <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 leading-relaxed">
               {currentQ.question_text}
             </h2>
             {currentQ.evaluation_criteria && currentQ.evaluation_criteria.length > 0 && (
-              <div className="mt-4 pt-4 border-t border-slate-900">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
+              <div className="mt-4 pt-4 border-t border-slate-200">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">
                   Criteria Checkpoints to Address:
                 </span>
                 <ul className="space-y-1">
                   {currentQ.evaluation_criteria.map((c, i) => (
-                    <li key={i} className="text-xs text-slate-300 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                    <li key={i} className="text-xs text-slate-700 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-teal-600 shrink-0" />
                       <span>{c}</span>
                     </li>
                   ))}
@@ -453,51 +454,51 @@ export const TestSimulatorPhase: React.FC = () => {
           </div>
 
           {/* Mode Switcher: Record Audio vs Type Text */}
-          <div className="flex items-center gap-2 bg-slate-950 p-1 rounded-xl border border-slate-800 w-fit">
+          <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-xl border border-slate-200 w-fit">
             <button
               onClick={() => setAnswerMode('RECORD')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                answerMode === 'RECORD' ? 'bg-cyan-950 border border-cyan-800 text-cyan-400' : 'text-slate-400'
+                answerMode === 'RECORD' ? 'bg-white text-teal-700 shadow-xs border border-slate-200' : 'text-slate-500'
               }`}
             >
-              <Mic className="w-3.5 h-3.5" />
+              <Mic className="w-3.5 h-3.5 text-teal-600" />
               <span>Record Verbal Answer</span>
             </button>
 
             <button
               onClick={() => setAnswerMode('TEXT')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                answerMode === 'TEXT' ? 'bg-cyan-950 border border-cyan-800 text-cyan-400' : 'text-slate-400'
+                answerMode === 'TEXT' ? 'bg-white text-teal-700 shadow-xs border border-slate-200' : 'text-slate-500'
               }`}
             >
-              <FileText className="w-3.5 h-3.5" />
+              <FileText className="w-3.5 h-3.5 text-teal-600" />
               <span>Type Text Answer</span>
             </button>
           </div>
 
           {/* Input Area */}
           {answerMode === 'RECORD' ? (
-            <div className="flex flex-col gap-4 p-6 rounded-2xl bg-slate-950 border border-slate-800 items-center justify-center text-center">
+            <div className="flex flex-col gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-200 items-center justify-center text-center">
               {!isRecording ? (
                 <button
                   onClick={handleStartRecording}
-                  className="w-16 h-16 rounded-full bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center shadow-lg shadow-rose-950/60 transition-all hover:scale-105"
+                  className="w-16 h-16 rounded-full bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center shadow-lg shadow-rose-600/30 transition-all hover:scale-105 cursor-pointer"
                 >
                   <Mic className="w-8 h-8" />
                 </button>
               ) : (
                 <button
                   onClick={handleStopRecording}
-                  className="w-16 h-16 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center shadow-lg shadow-amber-950/60 animate-pulse"
+                  className="w-16 h-16 rounded-full bg-amber-500 hover:bg-amber-400 text-white flex items-center justify-center shadow-lg shadow-amber-500/30 animate-pulse cursor-pointer"
                 >
-                  <Square className="w-6 h-6 fill-slate-950" />
+                  <Square className="w-6 h-6 fill-white" />
                 </button>
               )}
-              <span className="text-xs font-mono text-slate-400">
+              <span className="text-xs font-mono text-slate-600">
                 {isRecording ? `Recording... (${recordTimer}s)` : (audioBlob ? 'Recording captured ✓ Click Submit to Grade' : 'Click microphone to record your spoken response')}
               </span>
               {transcript && (
-                <p className="text-xs text-slate-300 max-w-xl text-left bg-slate-900 p-4 rounded-xl border border-slate-800 w-full mt-2 font-sans">
+                <p className="text-xs text-slate-800 max-w-xl text-left bg-white p-4 rounded-xl border border-slate-200 w-full mt-2 font-sans">
                   {transcript}
                 </p>
               )}
@@ -507,7 +508,7 @@ export const TestSimulatorPhase: React.FC = () => {
               value={textAnswer}
               onChange={(e) => setTextAnswer(e.target.value)}
               rows={5}
-              className="w-full p-4 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-500 text-sm text-slate-100 outline-none font-sans"
+              className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-teal-500 focus:bg-white text-sm text-slate-900 outline-none font-sans"
               placeholder="Type your structured technical answer here..."
             />
           )}
@@ -517,9 +518,9 @@ export const TestSimulatorPhase: React.FC = () => {
             <button
               onClick={handleEvaluateAnswer}
               disabled={loading || (answerMode === 'RECORD' && !audioBlob && !transcript.trim()) || (answerMode === 'TEXT' && !textAnswer.trim())}
-              className="flex items-center gap-3 px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 font-extrabold text-sm transition-all shadow-xl shadow-cyan-950/50 disabled:opacity-50"
+              className="flex items-center gap-3 px-8 py-3.5 rounded-xl bg-gradient-to-r from-teal-600 via-emerald-600 to-teal-700 hover:from-teal-500 hover:to-emerald-500 text-white font-extrabold text-sm transition-all shadow-lg shadow-teal-600/20 disabled:opacity-50 cursor-pointer"
             >
-              <Send className="w-4 h-4 fill-slate-950" />
+              <Send className="w-4 h-4 fill-white" />
               <span>{loading ? 'Evaluating Answer via AI...' : 'Submit & Grade Response'}</span>
             </button>
           </div>
@@ -529,63 +530,79 @@ export const TestSimulatorPhase: React.FC = () => {
       {/* Step 3: Instant AI Evaluation Results */}
       {step === 3 && currentEval && (
         <div className="flex flex-col gap-6">
-          <div className="p-8 rounded-3xl bg-slate-900/90 border border-slate-800/90 backdrop-blur-2xl shadow-2xl flex flex-col gap-6">
+          <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl flex flex-col gap-6">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="p-3 rounded-2xl bg-emerald-950 border border-emerald-800 text-emerald-400">
+                <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700">
                   <Award className="w-6 h-6" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-xs font-extrabold uppercase tracking-wider text-slate-400">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500">
                     Evaluation Result for Question {currentIndex + 1}
                   </span>
-                  <span className="text-xl font-extrabold text-white">
+                  <span className="text-xl font-extrabold text-slate-900">
                     {currentEval.accuracy_rating}
                   </span>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 font-mono">
-                  {currentEval.overall_score}<span className="text-xl text-slate-500">/100</span>
+                <div className="text-4xl font-black text-teal-700 font-mono">
+                  {currentEval.overall_score}<span className="text-xl text-slate-400">/100</span>
                 </div>
               </div>
             </div>
 
             {/* Adaptive Notice */}
             {adaptiveNotice && (
-              <div className="p-4 rounded-2xl bg-cyan-950/80 border border-cyan-800 text-cyan-300 text-xs font-bold flex items-center gap-3 shadow-lg">
-                <TrendingUp className="w-4 h-4 text-emerald-400 shrink-0" />
+              <div className="p-4 rounded-2xl bg-teal-50 border border-teal-200 text-teal-900 text-xs font-bold flex items-center gap-3 shadow-xs">
+                <TrendingUp className="w-4 h-4 text-teal-600 shrink-0" />
                 <span>{adaptiveNotice}</span>
               </div>
             )}
 
+            {/* Candidate Submitted Response Display */}
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-teal-700 uppercase tracking-wider flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4 text-teal-600" />
+                  Your Submitted Response
+                </span>
+                <span className="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-teal-800 text-[11px] font-mono font-semibold shadow-xs">
+                  {answerMode === 'RECORD' ? '🎙️ Spoken Response (AssemblyAI STT)' : '✍️ Written Response'}
+                </span>
+              </div>
+              <p className="text-sm font-sans text-slate-800 leading-relaxed bg-white p-4 rounded-xl border border-slate-200 italic">
+                "{currentEval.transcript || textAnswer || transcript || 'No candidate response captured.'}"
+              </p>
+            </div>
+
             {/* Strengths & Weaknesses */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-2xl bg-slate-950/90 border border-slate-800/90 flex flex-col gap-3">
-                <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col gap-3">
+                <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                   Key Strengths Identified
                 </span>
                 <ul className="space-y-2">
                   {currentEval.strengths.map((s, i) => (
-                    <li key={i} className="text-xs text-slate-300 flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
+                    <li key={i} className="text-xs text-slate-700 flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
                       <span>{s}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="p-6 rounded-2xl bg-slate-950/90 border border-slate-800/90 flex flex-col gap-3">
-                <span className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-amber-400" />
+              <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col gap-3">
+                <span className="text-xs font-bold text-amber-700 uppercase tracking-wider flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 text-amber-600" />
                   Weaknesses & Omitted Points
                 </span>
                 <ul className="space-y-2">
                   {currentEval.weaknesses.map((w, i) => (
-                    <li key={i} className="text-xs text-slate-300 flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <li key={i} className="text-xs text-slate-700 flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
                       <span>{w}</span>
                     </li>
                   ))}
@@ -594,15 +611,15 @@ export const TestSimulatorPhase: React.FC = () => {
             </div>
 
             {/* Actionable Coaching Advice */}
-            <div className="p-6 rounded-2xl bg-slate-950/90 border border-cyan-900/60 flex flex-col gap-2">
-              <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider">Actionable Coaching Advice</span>
-              <p className="text-sm text-slate-200 leading-relaxed font-sans">{currentEval.actionable_improvements}</p>
+            <div className="p-6 rounded-2xl bg-slate-50 border border-teal-200 flex flex-col gap-2">
+              <span className="text-xs font-bold text-teal-800 uppercase tracking-wider">Actionable Coaching Advice</span>
+              <p className="text-sm text-slate-800 leading-relaxed font-sans">{currentEval.actionable_improvements}</p>
             </div>
 
             {/* Model Answer Summary */}
-            <div className="p-6 rounded-2xl bg-slate-950/90 border border-slate-800/90 flex flex-col gap-2">
-              <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">Ideal Model Answer Summary</span>
-              <p className="text-xs font-mono text-slate-300 leading-relaxed bg-slate-900 p-4 rounded-xl border border-slate-800">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 flex flex-col gap-2">
+              <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Ideal Model Answer Summary</span>
+              <p className="text-xs font-mono text-slate-800 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-200">
                 {currentEval.ideal_response_summary}
               </p>
             </div>
@@ -612,7 +629,7 @@ export const TestSimulatorPhase: React.FC = () => {
               <button
                 onClick={handleNextQuestion}
                 disabled={loading}
-                className="flex items-center gap-3 px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-sm transition-all shadow-xl shadow-emerald-950/50"
+                className="flex items-center gap-3 px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-sm transition-all shadow-lg shadow-emerald-600/20 cursor-pointer"
               >
                 <span>{currentIndex + 1 < questions.length ? 'Proceed to Next Question' : 'Finish & View Cumulative Scorecard'}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -625,61 +642,91 @@ export const TestSimulatorPhase: React.FC = () => {
       {/* Step 4: Final Cumulative Scorecard */}
       {step === 4 && (
         <div className="flex flex-col gap-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 p-8 bg-slate-900/90 border border-slate-800/90 rounded-3xl backdrop-blur-2xl shadow-2xl">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 p-8 bg-white border border-slate-200 rounded-3xl shadow-xl">
             <div className="flex flex-col gap-2 text-center md:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-800 text-emerald-400 text-xs font-semibold uppercase tracking-wider w-fit mx-auto md:mx-0">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold uppercase tracking-wider w-fit mx-auto md:mx-0">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>Test Session Complete</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-                Readiness Score: <span className="text-emerald-400">{cumulativeReport?.readiness_percentage || 85}%</span>
+              <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                Readiness Score: <span className="text-emerald-700">{cumulativeReport?.readiness_percentage || 85}%</span>
               </h1>
-              <p className="text-xs text-slate-400 max-w-xl">
+              <p className="text-xs text-slate-500 max-w-xl">
                 Domain: {domain} ({evaluations.length} Questions Evaluated)
               </p>
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="flex flex-col items-center gap-1 bg-slate-950 border border-slate-800 p-6 rounded-2xl font-mono">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Overall Score</span>
-                <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-                  {cumulativeReport?.overall_score || 82}<span className="text-2xl text-slate-500">/100</span>
+              <div className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-200 p-6 rounded-2xl font-mono shadow-xs">
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Overall Score</span>
+                <div className="text-5xl font-black text-teal-700">
+                  {cumulativeReport?.overall_score || 82}<span className="text-2xl text-slate-400">/100</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800/90 backdrop-blur-xl flex flex-col gap-3">
-              <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 flex flex-col gap-3 shadow-xs">
+              <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 Cumulative Strengths
               </span>
               <ul className="space-y-2">
                 {(cumulativeReport?.cumulative_strengths || ['Strong technical vocabulary', 'Clear structure']).map((s: string, i: number) => (
-                  <li key={i} className="text-xs text-slate-300 flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
+                  <li key={i} className="text-xs text-slate-700 flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
                     <span>{s}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800/90 backdrop-blur-xl flex flex-col gap-3">
-              <span className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-amber-400" />
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 flex flex-col gap-3 shadow-xs">
+              <span className="text-xs font-bold text-amber-700 uppercase tracking-wider flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-amber-600" />
                 Top Persistent Blindspots
               </span>
               <ul className="space-y-2">
                 {(cumulativeReport?.persistent_weaknesses || ['Omitted quantitative benchmark metrics']).map((w: string, i: number) => (
-                  <li key={i} className="text-xs text-slate-300 flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                  <li key={i} className="text-xs text-slate-700 flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
                     <span>{w}</span>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
+
+          {/* Question & Candidate Response Breakdown */}
+          {evaluations.length > 0 && (
+            <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-xl flex flex-col gap-4">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+                <MessageSquare className="w-4 h-4 text-teal-600" />
+                Session Question & Candidate Response History
+              </span>
+              <div className="flex flex-col gap-4">
+                {evaluations.map((ev, idx) => (
+                  <div key={idx} className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col gap-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-2">
+                      <span className="text-xs font-bold text-teal-800">
+                        Question {idx + 1}: {questions[idx]?.question_text || `Question ${idx + 1}`}
+                      </span>
+                      <span className="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-mono font-black text-emerald-700 shadow-xs">
+                        Score: {ev.overall_score}/100 ({ev.accuracy_rating})
+                      </span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Candidate Response:</span>
+                      <p className="text-xs text-slate-800 font-sans italic bg-white p-3.5 rounded-xl border border-slate-200 leading-relaxed">
+                        "{ev.transcript || 'No candidate response recorded'}"
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="flex justify-center py-4">
             <button
@@ -689,9 +736,9 @@ export const TestSimulatorPhase: React.FC = () => {
                 setCurrentEval(null);
                 setCumulativeReport(null);
               }}
-              className="flex items-center gap-2 px-8 py-3.5 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-white font-bold text-sm transition-all shadow-xl"
+              className="flex items-center gap-2 px-8 py-3.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 font-bold text-sm transition-all shadow-sm cursor-pointer"
             >
-              <RefreshCw className="w-4 h-4 text-cyan-400" />
+              <RefreshCw className="w-4 h-4 text-teal-600" />
               <span>Start New Test Simulator Session</span>
             </button>
           </div>

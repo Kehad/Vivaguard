@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { EvaluationEntry } from '@/hooks/useAudioStreamer';
@@ -80,12 +80,12 @@ export const DebriefPhase: React.FC<DebriefPhaseProps> = ({
 
   if (loading) {
     return (
-      <div className="w-full max-w-4xl p-12 rounded-3xl bg-slate-900/80 border border-slate-800 backdrop-blur-2xl flex flex-col items-center justify-center gap-4 text-center my-12 shadow-2xl">
-        <div className="w-12 h-12 rounded-full border-4 border-cyan-500 border-t-transparent animate-spin" />
-        <span className="text-sm font-extrabold text-white tracking-wide">
+      <div className="w-full max-w-4xl p-12 rounded-3xl bg-white border border-slate-200 shadow-xl flex flex-col items-center justify-center gap-4 text-center my-12">
+        <div className="w-12 h-12 rounded-full border-4 border-teal-600 border-t-transparent animate-spin" />
+        <span className="text-sm font-extrabold text-slate-900 tracking-wide">
           Compiling STAR Defense Debrief & Scorecard...
         </span>
-        <span className="text-xs text-slate-400">
+        <span className="text-xs text-slate-500">
           Analyzing filler words, technical depth, examiner sentiment, and signal shifts.
         </span>
       </div>
@@ -130,26 +130,26 @@ export const DebriefPhase: React.FC<DebriefPhaseProps> = ({
   return (
     <div className="w-full max-w-5xl flex flex-col gap-8 animate-fadeIn">
       {/* Top Banner Card */}
-      <div className="p-8 rounded-3xl bg-slate-900/90 border border-slate-800/90 backdrop-blur-2xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex flex-col gap-2 text-center md:text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-800 text-emerald-400 text-xs font-semibold uppercase tracking-wider w-fit mx-auto md:mx-0">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold uppercase tracking-wider w-fit mx-auto md:mx-0">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
             <span>Session Debrief Complete</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-            Verdict: <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">{d.defense_verdict}</span>
+          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+            Verdict: <span className="text-teal-700">{d.defense_verdict}</span>
           </h1>
-          <p className="text-xs text-slate-400 max-w-xl leading-relaxed">
+          <p className="text-xs text-slate-600 max-w-xl leading-relaxed">
             Target Topic: {targetQuestion}
           </p>
         </div>
 
         {/* Overall Score Badge */}
         <div className="flex items-center gap-4">
-          <div className="flex flex-col items-center gap-1 bg-slate-950 border border-slate-800 p-6 rounded-2xl font-mono shadow-inner">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Overall Score</span>
-            <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
-              {d.overall_score}<span className="text-2xl text-slate-500">/100</span>
+          <div className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-200 p-6 rounded-2xl font-mono shadow-xs">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Overall Score</span>
+            <div className="text-5xl font-black text-teal-700">
+              {d.overall_score}<span className="text-2xl text-slate-400">/100</span>
             </div>
           </div>
         </div>
@@ -157,87 +157,87 @@ export const DebriefPhase: React.FC<DebriefPhaseProps> = ({
 
       {/* Sub-Score Breakdown Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 backdrop-blur-xl flex flex-col gap-2">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Verbal Clarity</span>
-          <div className="text-3xl font-extrabold text-cyan-400 font-mono">{d.clarity_score}/100</div>
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 flex flex-col gap-2 shadow-xs">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Verbal Clarity</span>
+          <div className="text-3xl font-extrabold text-teal-700 font-mono">{d.clarity_score}/100</div>
           <span className="text-[11px] text-slate-500">{d.total_fillers} filler words detected</span>
         </div>
 
-        <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 backdrop-blur-xl flex flex-col gap-2">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Delivery Confidence</span>
-          <div className="text-3xl font-extrabold text-emerald-400 font-mono">{d.confidence_score}/100</div>
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 flex flex-col gap-2 shadow-xs">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Delivery Confidence</span>
+          <div className="text-3xl font-extrabold text-emerald-700 font-mono">{d.confidence_score}/100</div>
           <span className="text-[11px] text-slate-500">{d.green_percentage}% Green signal alignment</span>
         </div>
 
-        <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 backdrop-blur-xl flex flex-col gap-2">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Technical Depth</span>
-          <div className="text-3xl font-extrabold text-teal-300 font-mono">{d.technical_depth_score}/100</div>
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 flex flex-col gap-2 shadow-xs">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Technical Depth</span>
+          <div className="text-3xl font-extrabold text-indigo-700 font-mono">{d.technical_depth_score}/100</div>
           <span className="text-[11px] text-slate-500">{d.total_technical_keywords} domain terms used</span>
         </div>
       </div>
 
       {/* STAR Framework Answer Model */}
-      <div className="p-8 rounded-3xl bg-slate-900/90 border border-slate-800/90 backdrop-blur-2xl shadow-2xl flex flex-col gap-6">
+      <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl flex flex-col gap-6">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
+          <span className="text-xs font-bold uppercase tracking-wider text-teal-700 flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-teal-600" />
             Ideal STAR Framework Answer Model
           </span>
           <button
             onClick={handleCopyReport}
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyan-500/50 text-xs font-semibold text-slate-300 transition-all"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 text-xs font-semibold text-slate-700 transition-all cursor-pointer shadow-xs"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-cyan-400" />}
+            {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-teal-600" />}
             <span>{copied ? 'Copied Report ✓' : 'Copy Report'}</span>
           </button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex flex-col gap-1">
-            <span className="text-[11px] font-extrabold text-cyan-400 uppercase tracking-wider">Situation</span>
-            <p className="text-xs text-slate-200 leading-relaxed font-sans">{d.ideal_star_answer?.Situation}</p>
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col gap-1">
+            <span className="text-[11px] font-extrabold text-teal-700 uppercase tracking-wider">Situation</span>
+            <p className="text-xs text-slate-700 leading-relaxed font-sans">{d.ideal_star_answer?.Situation}</p>
           </div>
-          <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex flex-col gap-1">
-            <span className="text-[11px] font-extrabold text-emerald-400 uppercase tracking-wider">Task</span>
-            <p className="text-xs text-slate-200 leading-relaxed font-sans">{d.ideal_star_answer?.Task}</p>
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col gap-1">
+            <span className="text-[11px] font-extrabold text-emerald-700 uppercase tracking-wider">Task</span>
+            <p className="text-xs text-slate-700 leading-relaxed font-sans">{d.ideal_star_answer?.Task}</p>
           </div>
-          <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex flex-col gap-1">
-            <span className="text-[11px] font-extrabold text-teal-300 uppercase tracking-wider">Action</span>
-            <p className="text-xs text-slate-200 leading-relaxed font-sans">{d.ideal_star_answer?.Action}</p>
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col gap-1">
+            <span className="text-[11px] font-extrabold text-indigo-700 uppercase tracking-wider">Action</span>
+            <p className="text-xs text-slate-700 leading-relaxed font-sans">{d.ideal_star_answer?.Action}</p>
           </div>
-          <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex flex-col gap-1">
-            <span className="text-[11px] font-extrabold text-amber-400 uppercase tracking-wider">Result</span>
-            <p className="text-xs text-slate-200 leading-relaxed font-sans">{d.ideal_star_answer?.Result}</p>
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col gap-1">
+            <span className="text-[11px] font-extrabold text-amber-700 uppercase tracking-wider">Result</span>
+            <p className="text-xs text-slate-700 leading-relaxed font-sans">{d.ideal_star_answer?.Result}</p>
           </div>
         </div>
       </div>
 
       {/* Strengths & Weaknesses Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 backdrop-blur-xl flex flex-col gap-3">
-          <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col gap-3">
+          <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
             Key Defense Strengths
           </span>
           <ul className="space-y-2">
             {d.key_strengths.map((s: string, i: number) => (
-              <li key={i} className="text-xs text-slate-300 flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
+              <li key={i} className="text-xs text-slate-700 flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
                 <span>{s}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 backdrop-blur-xl flex flex-col gap-3">
-          <span className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-amber-400" />
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col gap-3">
+          <span className="text-xs font-bold text-amber-700 uppercase tracking-wider flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-amber-600" />
             Areas for Refinement
           </span>
           <ul className="space-y-2">
             {d.key_weaknesses.map((w: string, i: number) => (
-              <li key={i} className="text-xs text-slate-300 flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+              <li key={i} className="text-xs text-slate-700 flex items-start gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
                 <span>{w}</span>
               </li>
             ))}
@@ -249,9 +249,9 @@ export const DebriefPhase: React.FC<DebriefPhaseProps> = ({
       <div className="flex justify-center py-4">
         <button
           onClick={onRestart}
-          className="flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 font-extrabold text-sm transition-all shadow-xl shadow-cyan-950/60"
+          className="flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-teal-600 via-emerald-600 to-teal-700 hover:from-teal-500 hover:to-emerald-500 text-white font-extrabold text-sm transition-all shadow-lg shadow-teal-600/20 cursor-pointer"
         >
-          <RefreshCw className="w-4 h-4 fill-slate-950" />
+          <RefreshCw className="w-4 h-4 fill-white" />
           <span>Start New Live Copilot Session</span>
         </button>
       </div>

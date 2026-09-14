@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { ShieldCheck, Sparkles, Mic, FileText, HelpCircle, ArrowRight, Zap, Play, CheckCircle2, Sliders } from 'lucide-react';
@@ -72,22 +72,22 @@ export const SetupPhase: React.FC<SetupPhaseProps> = ({
     <div className="w-full max-w-4xl flex flex-col gap-8 animate-fadeIn">
       {/* Header Banner */}
       <div className="text-center flex flex-col gap-3">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-800 text-cyan-300 text-xs font-semibold uppercase tracking-wider mx-auto shadow-md">
-          <Sparkles className="w-4 h-4 text-cyan-400" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-semibold uppercase tracking-wider mx-auto shadow-xs">
+          <Sparkles className="w-4 h-4 text-teal-600" />
           <span>Setup Live Copilot Defense Parameters</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
           Prepare Your Verbal Defense
         </h1>
-        <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
           Configure your baseline ground truth context and target question. VivaGuard’s real-time AssemblyAI speech-to-text pipeline will evaluate your verbal responses in real time.
         </p>
       </div>
 
       {/* Persona Presets Grid */}
       <div className="flex flex-col gap-3">
-        <label className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-          <Sliders className="w-4 h-4 text-cyan-400" />
+        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <Sliders className="w-4 h-4 text-teal-600" />
           Select Presets or Custom Defense Scenarios
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -97,72 +97,72 @@ export const SetupPhase: React.FC<SetupPhaseProps> = ({
               onClick={() => handleSelectPersona(p)}
               className={`p-4 rounded-2xl border text-left flex flex-col gap-2 transition-all duration-200 ${
                 selectedPersona === p.id
-                  ? 'bg-slate-900 border-cyan-500 shadow-xl shadow-cyan-950/50 ring-1 ring-cyan-500'
-                  : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 text-slate-400 hover:text-slate-200'
+                  ? 'bg-white border-teal-500 shadow-md ring-1 ring-teal-500 text-slate-900'
+                  : 'bg-white/80 border-slate-200 hover:border-slate-300 text-slate-600 hover:text-slate-900 shadow-xs'
               }`}
             >
-              <span className="text-xs font-extrabold text-white flex items-center justify-between">
-                <span>{p.label}</span>
-                {selectedPersona === p.id && <CheckCircle2 className="w-4 h-4 text-cyan-400" />}
+              <span className="text-xs font-extrabold flex items-center justify-between">
+                <span className="text-slate-900">{p.label}</span>
+                {selectedPersona === p.id && <CheckCircle2 className="w-4 h-4 text-teal-600" />}
               </span>
-              <span className="text-xs text-slate-400 line-clamp-2 leading-snug">{p.title}</span>
+              <span className="text-xs text-slate-500 line-clamp-2 leading-snug">{p.title}</span>
             </button>
           ))}
         </div>
       </div>
 
       {/* Main Inputs Card */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-slate-800/90 backdrop-blur-2xl shadow-2xl flex flex-col gap-6">
+      <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-xl flex flex-col gap-6">
         {/* Target Question */}
         <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
-            <HelpCircle className="w-4 h-4 text-cyan-400" />
+          <label className="text-xs font-bold uppercase tracking-wider text-teal-700 flex items-center gap-2">
+            <HelpCircle className="w-4 h-4 text-teal-600" />
             Target Question / Interrogation Prompt
           </label>
           <textarea
             value={targetQuestion}
             onChange={(e) => onTargetQuestionChange(e.target.value)}
             rows={2}
-            className="w-full p-4 rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-sm text-slate-100 placeholder-slate-600 outline-none transition-all resize-none font-sans"
+            className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-teal-500 focus:bg-white focus:ring-1 focus:ring-teal-500 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all resize-none font-sans"
             placeholder="e.g. Defend your choice of lock-free ring buffers over mutex-gated queues..."
           />
         </div>
 
         {/* Ground Truth Context */}
         <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-2">
-            <FileText className="w-4 h-4 text-emerald-400" />
+          <label className="text-xs font-bold uppercase tracking-wider text-indigo-700 flex items-center gap-2">
+            <FileText className="w-4 h-4 text-indigo-600" />
             Ground Truth Context & Core Thesis Parameters
           </label>
           <textarea
             value={groundTruth}
             onChange={(e) => onGroundTruthChange(e.target.value)}
             rows={4}
-            className="w-full p-4 rounded-xl bg-slate-950 border border-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm text-slate-100 placeholder-slate-600 outline-none transition-all resize-none font-sans"
+            className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-indigo-500 focus:bg-white focus:ring-1 focus:ring-indigo-500 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all resize-none font-sans"
             placeholder="Paste abstract, key metrics, architecture details, or background facts..."
           />
         </div>
 
         {/* Controls Bar: Mic Test & Start Session */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-800/80">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-100">
           <button
             onClick={handleTestMic}
             className={`flex items-center gap-2.5 px-5 py-3 rounded-xl border text-xs font-bold transition-all ${
               micTested
-                ? 'bg-emerald-950/80 border-emerald-800 text-emerald-400'
-                : 'bg-slate-950 border-slate-800 hover:border-slate-700 text-slate-300'
+                ? 'bg-emerald-50 border-emerald-300 text-emerald-800'
+                : 'bg-white border-slate-200 hover:border-slate-300 text-slate-700 shadow-xs'
             }`}
           >
-            <Mic className={`w-4 h-4 ${micTested ? 'text-emerald-400' : 'text-slate-400'}`} />
+            <Mic className={`w-4 h-4 ${micTested ? 'text-emerald-600' : 'text-slate-500'}`} />
             <span>{micTested ? 'Microphone Verified ✓' : 'Test Microphone Hardware'}</span>
           </button>
 
           <button
             onClick={onStartSession}
             disabled={!targetQuestion.trim()}
-            className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 font-extrabold text-sm transition-all shadow-xl shadow-cyan-950/60 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-teal-600 via-emerald-600 to-teal-700 hover:from-teal-500 hover:to-emerald-500 text-white font-extrabold text-sm transition-all shadow-lg shadow-teal-600/20 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
-            <Play className="w-4 h-4 fill-slate-950" />
+            <Play className="w-4 h-4 fill-white" />
             <span>Launch Live Copilot Defense Session</span>
             <ArrowRight className="w-4 h-4" />
           </button>
