@@ -40,6 +40,7 @@ interface EvaluationResult {
   weaknesses: string[];
   actionable_improvements: string;
   ideal_response_summary: string;
+  audio_base64?: string;
 }
 
 const PRESET_DOMAINS = [
@@ -73,6 +74,10 @@ export const TestSimulatorPhase: React.FC = () => {
   const [transcript, setTranscript] = useState<string>('');
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
 
+  // Spoken AI Feedback Audio Player State
+  const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   const [evaluations, setEvaluations] = useState<EvaluationResult[]>([]);
   const [currentEval, setCurrentEval] = useState<EvaluationResult | null>(null);
   const [cumulativeReport, setCumulativeReport] = useState<any>(null);
@@ -83,6 +88,36 @@ export const TestSimulatorPhase: React.FC = () => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+
+  // Auto-play AssemblyAI Voice Agent spoken feedback audio when step 3 opens
+  useEffect(() => {
+    if (step === 3 && currentEval?.audio_base64) {
+      try {
+        const audioUrl = `data:audio/wav;base64,${currentEval.audio_base64}`;
+        if (audioRef.current) {
+          audioRef.current.pause();
+        }
+        const audio = new Audio(audioUrl);
+        audioRef.current = audio;
+        audio.onended = () => setIsPlayingAudio(false);
+        audio.onpause = () => setIsPlayingAudio(false);
+        audio.onplay = () => setIsPlayingAudio(true);
+
+        audio.play().catch((err) => {
+          console.warn('Auto-play prevented by browser policy (click play to listen):', err);
+        });
+        setIsPlayingAudio(true);
+      } catch (e) {
+        console.error('Audio playback error:', e);
+      }
+    }
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, [step, currentEval]);
+
 
   // Initialize Speech Recognition fallback
   useEffect(() => {
@@ -119,7 +154,7 @@ export const TestSimulatorPhase: React.FC = () => {
     if (recognitionRef.current) {
       try {
         recognitionRef.current.start();
-      } catch (_) {}
+      } catch (_) { }
     }
 
     try {
@@ -158,12 +193,12 @@ export const TestSimulatorPhase: React.FC = () => {
     if (recognitionRef.current) {
       try {
         recognitionRef.current.stop();
-      } catch (_) {}
+      } catch (_) { }
     }
     if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
       try {
         mediaRecorderRef.current.stop();
-      } catch (_) {}
+      } catch (_) { }
     }
   };
 
@@ -340,11 +375,10 @@ export const TestSimulatorPhase: React.FC = () => {
                   onClick={() => {
                     setDomain(p.domain);
                   }}
-                  className={`p-4 rounded-2xl border text-left flex flex-col gap-1 transition-all ${
-                    domain === p.domain
+                  className={`p-4 rounded-2xl border text-left flex flex-col gap-1 transition-all ${domain === p.domain
                       ? 'bg-white border-emerald-500 text-slate-900 ring-1 ring-emerald-500 shadow-sm'
                       : 'bg-slate-50/70 border-slate-200 text-slate-600 hover:border-slate-300'
-                  }`}
+                    }`}
                 >
                   <span className="text-xs font-bold text-slate-900">{p.label}</span>
                   <span className="text-[11px] text-slate-500">{p.domain}</span>
@@ -395,11 +429,10 @@ export const TestSimulatorPhase: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setAdaptiveMode(!adaptiveMode)}
-                className={`p-3.5 rounded-xl border text-xs font-bold flex items-center justify-between transition-all ${
-                  adaptiveMode
+                className={`p-3.5 rounded-xl border text-xs font-bold flex items-center justify-between transition-all ${adaptiveMode
                     ? 'bg-emerald-50 border-emerald-300 text-emerald-800'
                     : 'bg-slate-50 border-slate-200 text-slate-500'
-                }`}
+                  }`}
               >
                 <span>Adaptive Difficulty</span>
                 <span className="font-mono">{adaptiveMode ? 'ENABLED ✓' : 'OFF'}</span>
@@ -457,9 +490,8 @@ export const TestSimulatorPhase: React.FC = () => {
           <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-xl border border-slate-200 w-fit">
             <button
               onClick={() => setAnswerMode('RECORD')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                answerMode === 'RECORD' ? 'bg-white text-teal-700 shadow-xs border border-slate-200' : 'text-slate-500'
-              }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${answerMode === 'RECORD' ? 'bg-white text-teal-700 shadow-xs border border-slate-200' : 'text-slate-500'
+                }`}
             >
               <Mic className="w-3.5 h-3.5 text-teal-600" />
               <span>Record Verbal Answer</span>
@@ -467,9 +499,8 @@ export const TestSimulatorPhase: React.FC = () => {
 
             <button
               onClick={() => setAnswerMode('TEXT')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                answerMode === 'TEXT' ? 'bg-white text-teal-700 shadow-xs border border-slate-200' : 'text-slate-500'
-              }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${answerMode === 'TEXT' ? 'bg-white text-teal-700 shadow-xs border border-slate-200' : 'text-slate-500'
+                }`}
             >
               <FileText className="w-3.5 h-3.5 text-teal-600" />
               <span>Type Text Answer</span>
@@ -558,6 +589,53 @@ export const TestSimulatorPhase: React.FC = () => {
               <div className="p-4 rounded-2xl bg-teal-50 border border-teal-200 text-teal-900 text-xs font-bold flex items-center gap-3 shadow-xs">
                 <TrendingUp className="w-4 h-4 text-teal-600 shrink-0" />
                 <span>{adaptiveNotice}</span>
+              </div>
+            )}
+
+            {/* AssemblyAI Voice Agent Spoken Feedback Audio Player */}
+            {currentEval.audio_base64 && (
+              <div className="p-5 rounded-2xl bg-gradient-to-r from-teal-900 via-slate-900 to-emerald-950 text-white flex items-center justify-between shadow-lg border border-teal-800/50">
+                <div className="flex items-center gap-4">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (audioRef.current) {
+                        if (isPlayingAudio) {
+                          audioRef.current.pause();
+                        } else {
+                          audioRef.current.play();
+                        }
+                      }
+                    }}
+                    className="w-12 h-12 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 flex items-center justify-center shadow-md transition-all hover:scale-105 cursor-pointer shrink-0"
+                  >
+                    {isPlayingAudio ? (
+                      <Square className="w-5 h-5 fill-slate-950" />
+                    ) : (
+                      <Volume2 className="w-6 h-6 text-slate-950" />
+                    )}
+                  </button>
+                  <div className="flex flex-col">
+                    <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                      AssemblyAI Voice Agent Audio Response
+                    </span>
+                    <span className="text-sm font-semibold text-slate-100">
+                      {isPlayingAudio ? '🔊 Playing spoken evaluation audio...' : '▶ Click to listen to AI spoken evaluation'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-800/80 border border-slate-700/80">
+                  {[40, 70, 30, 90, 60, 100, 50, 80, 40, 70].map((h, idx) => (
+                    <span
+                      key={idx}
+                      className={`w-1 rounded-full bg-emerald-400 transition-all duration-300 ${isPlayingAudio ? 'animate-pulse' : 'opacity-40'
+                        }`}
+                      style={{ height: `${isPlayingAudio ? (idx % 2 === 0 ? 18 : 10) : 6}px` }}
+                    />
+                  ))}
+                </div>
               </div>
             )}
 
