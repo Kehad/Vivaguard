@@ -123,7 +123,7 @@ export default function Home() {
               }`}
             >
               <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Test Simulator Mode</span>
+              <span>Interactive Defense Mode</span>
             </button>
           </div>
 
