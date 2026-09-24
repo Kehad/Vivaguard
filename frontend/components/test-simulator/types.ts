@@ -18,8 +18,8 @@ export interface EvaluationResult {
 }
 
 export const PRESET_DOMAINS = [
-  { label: '🎓 Embedded Systems Thesis', domain: 'Embedded Systems Thesis Defense' },
-  { label: '💻 React Native Engineer', domain: 'React Native Frontend Engineer' },
-  { label: '🚀 Seed VC Pitch', domain: 'Seed-Stage VC Pitch Presentation' },
-  { label: '👔 Behavioral Leadership', domain: 'Engineering Manager Leadership' }
+  { label: '🎓 University Thesis Defense', domain: 'Academic Research Thesis Defense' },
+  { label: '💻 Software & System Design Interview', domain: 'Software Engineering & System Design Interview' },
+  { label: '🚀 Startup Pitch Practice', domain: 'Startup Pitch Presentation & VC Defense' },
+  { label: '👔 Behavioral & Leadership Interview', domain: 'Leadership & Behavioral Management Interview' }
 ];

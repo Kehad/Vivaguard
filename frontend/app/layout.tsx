@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -13,8 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "VivaGuard | AI Defense & Technical Interview Copilot",
-  description: "Real-time AI copilot and test simulator for thesis defense, job interviews, and investor pitches powered by AssemblyAI STT and Gemini LLM.",
+  title: "VerbaPulse | Real-Time Voice Telemetry & Defense Copilot",
+  description: "Real-time AI voice copilot and adaptive interview simulator powered by AssemblyAI STT and Gemini LLM.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +32,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
+      <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 selection:bg-blue-500 selection:text-white">
         {children}
       </body>
     </html>

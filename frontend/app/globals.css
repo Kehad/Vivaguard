@@ -1,69 +1,104 @@
 @import "tailwindcss";
 
+@layer utilities {
+  .glass-card {
+    background: rgba(11, 19, 43, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+  }
+
+  .glass-pill {
+    background: rgba(59, 130, 246, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+
+  .text-gradient-sapphire {
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #34d399 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-mint {
+    background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-coral {
+    background: linear-gradient(135deg, #fb7185 0%, #f43f5e 50%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --background: #030712;
+  --foreground: #f8fafc;
 }
 
 body {
-  background-color: #f8fafc;
-  color: #0f172a;
-  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #030712;
+  color: #f8fafc;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #030712;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #1e293b;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #3b82f6;
 }
 
-/* Custom Keyframes & Animations */
-@keyframes pulseGlowGreen {
+/* Pulse Keyframes & Glowing Effects (Neon Sapphire, Mint & Coral) */
+@keyframes pulseGlowSapphire {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4), 0 0 40px rgba(16, 185, 129, 0.2);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.2);
   }
   50% {
-    box-shadow: 0 0 35px rgba(16, 185, 129, 0.7), 0 0 60px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 35px rgba(59, 130, 246, 0.7), 0 0 60px rgba(59, 130, 246, 0.35);
   }
 }
 
-@keyframes pulseGlowAmber {
+@keyframes pulseGlowMint {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4), 0 0 40px rgba(245, 158, 11, 0.2);
+    box-shadow: 0 0 20px rgba(52, 211, 153, 0.4), 0 0 40px rgba(52, 211, 153, 0.2);
   }
   50% {
-    box-shadow: 0 0 35px rgba(245, 158, 11, 0.7), 0 0 60px rgba(245, 158, 11, 0.4);
+    box-shadow: 0 0 35px rgba(52, 211, 153, 0.7), 0 0 60px rgba(52, 211, 153, 0.35);
   }
 }
 
-@keyframes pulseGlowRed {
+@keyframes pulseGlowCoral {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.4), 0 0 40px rgba(239, 68, 68, 0.2);
+    box-shadow: 0 0 20px rgba(244, 63, 94, 0.4), 0 0 40px rgba(244, 63, 94, 0.2);
   }
   50% {
-    box-shadow: 0 0 35px rgba(239, 68, 68, 0.7), 0 0 60px rgba(239, 68, 68, 0.4);
+    box-shadow: 0 0 35px rgba(244, 63, 94, 0.7), 0 0 60px rgba(244, 63, 94, 0.35);
   }
 }
 
-.animate-pulse-green {
-  animation: pulseGlowGreen 2.5s infinite ease-in-out;
+.animate-pulse-green,
+.animate-pulse-mint {
+  animation: pulseGlowMint 2.5s infinite ease-in-out;
 }
 
-.animate-pulse-amber {
-  animation: pulseGlowAmber 2.5s infinite ease-in-out;
+.animate-pulse-sapphire {
+  animation: pulseGlowSapphire 2.5s infinite ease-in-out;
 }
 
-.animate-pulse-red {
-  animation: pulseGlowRed 1.8s infinite ease-in-out;
+.animate-pulse-red,
+.animate-pulse-coral {
+  animation: pulseGlowCoral 1.8s infinite ease-in-out;
 }
